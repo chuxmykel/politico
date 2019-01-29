@@ -12,40 +12,42 @@
 </head>
 
 <body>
-  <header>
-    <div class="header-logo">
-      <p class="logo"><span class="first-letter">p</span>olitico</p>
+  <div class="page">
+    <header>
+      <div class="header-logo">
+        <p class="logo"><span class="first-letter">p</span>olitico</p>
+      </div>
+      <div class="nav-container">
+        <ul class="top-nav">
+          <li><a href="#">Standings</a></li>
+          <li><a href="admin.html"><i class="fas fa-lock"></i></a></li>
+        </ul>
+      </div>
+    </header>
+    <div class="body-container profile">
+      <h1>admin <i class="fas fa-lock"></i></h1>
+      <div class="profile-image">
+        <img id="output"></img>
+        <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+        <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
+      </div>
+      <div class="profile-info">
+        <h4>Name Container</h4>
+        <p>email@container.com</p>
+        <p>phone number container</p>
+      </div>
+      <br>
+      <div id="vote-btn">
+        <a href="#">Create Party</a>
+        <a href="#">Create Gov't Office</a>
+        <a href="#">Edit/Delete Party</a>
+      </div>
+  
     </div>
-    <div class="nav-container">
-      <ul class="top-nav">
-        <li><a href="#">Standings</a></li>
-        <li><a href="admin.html"><i class="fas fa-lock"></i></a></li>
-      </ul>
-    </div>
-  </header>
-  <div class="body-container profile">
-    <h1>admin <i class="fas fa-lock"></i></h1>
-    <div class="profile-image">
-      <img id="output"></img>
-      <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-      <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
-    </div>
-    <div class="profile-info">
-      <h4>Name Container</h4>
-      <p>email@container.com</p>
-      <p>phone number container</p>
-    </div>
-    <br>
-    <div id="vote-btn">
-      <a href="#">Create Party</a>
-      <a href="#">Create Gov't Office</a>
-      <a href="#">Edit/Delete Party</a>
-    </div>
-
+    <footer>
+      <p>Copyright &copy; Politico 2019</p>
+    </footer>
   </div>
-  <footer>
-    <p>Copyright &copy; Politico 2019</p>
-  </footer>
 </body>
 
 </html>
