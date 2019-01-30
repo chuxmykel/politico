@@ -28,7 +28,7 @@
       <div class="profile-image">
         <img id="output"></img>
         <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-        <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
+        <p class="image-p"><label for="file"><i class="fas fnew-namea-user-edit"></i> Upload Image</label></p>
       </div>
       <div class="profile-info">
         <h4>Name Container</h4>
@@ -38,8 +38,8 @@
       <br>
       <div id="vote-btn">
         <a id="myBtn">Create Party</a>
-        <a>Create Gov't Office</a>
-        <a>Edit/Delete Party</a>
+        <a id="myBtn1">Create Gov't Office</a>
+        <a id="myBtn2">Edit/Delete Party</a>
       </div>
   
     </div>
@@ -56,6 +56,40 @@
                 <input class="form-input" type="text" name="hqAddress" placeholder="Enter Address">
               </div>
               <button id ="submit" class="submit-btn">Create Party</button>
+            </form>
+        </div>
+      </div>
+      <!-- Modal 2 -->
+      <div id="myModal1" class="modal">
+        <div class="modal-content">
+          <span class="close1">&times;</span>
+          <form action="" method="">
+              <div class="form-segment">
+                <div class="form-label"><label>Office Name</label></div>
+                <input class="form-input" type="text" name="office-name" placeholder="Enter Office Name">
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>Office Type</label></div>
+                <input class="form-input" type="text" name="office-type" placeholder="Enter Office Type">
+              </div>
+              <button id ="submit" class="submit-btn">Create Office</button>
+            </form>
+        </div>
+      </div>
+      <!-- Modal 3 -->
+      <div id="myModal2" class="modal">
+        <div class="modal-content">
+          <span class="close2">&times;</span>
+          <form action="" method="">
+              <div class="form-segment">
+                <div class="form-label"><label>Party Name</label></div>
+                <select class ="form-input" name="" id="">
+                  <option value="">PDP</option>
+                  <option value="">APC</option>
+                </select>
+              </div>
+              <button id ="submit" class="submit-btn">Edit Party</button>
+              <button class="submit-btn">Delete Party</button>
             </form>
         </div>
       </div>
