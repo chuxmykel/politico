@@ -26,9 +26,9 @@
     <div class="body-container profile">
       <h1>admin <i class="fas fa-lock"></i></h1>
       <div class="profile-image">
-        <img id="output"></img>
+        <img src="img/my_profile.jpg" id="output"></img>
         <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-        <p class="image-p"><label for="file"><i class="fas fnew-namea-user-edit"></i> Upload Image</label></p>
+        <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
       </div>
       <div class="profile-info">
         <h4>Name Container</h4>
@@ -77,19 +77,35 @@
         </div>
       </div>
       <!-- Modal 3 -->
-      <div id="myModal2" class="modal">
+      <div id="myModal2" class="modal large">
         <div class="modal-content">
           <span class="close2">&times;</span>
           <form action="" method="">
               <div class="form-segment">
-                <div class="form-label"><label>Party Name</label></div>
+                <div class="form-label"><label>Select Party to delete</label></div>
                 <select class ="form-input" name="" id="">
                   <option value="">PDP</option>
                   <option value="">APC</option>
                 </select>
               </div>
-              <button id ="submit" class="submit-btn">Edit Party</button>
               <button class="submit-btn">Delete Party</button>
+              <br><br>
+              <div class="form-segment">
+                <div class="form-label"><label>Edit Party</label></div>
+                <select class ="form-input" name="" id="">
+                  <option value="">PDP</option>
+                  <option value="">APC</option>
+                </select>
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>Party Name</label></div>
+                <input class="form-input" type="text" name="party-name" placeholder="Enter New Party Name">
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>HQ Address</label></div>
+                <input class="form-input" type="text" name="hqAddress" placeholder="Enter New Address">
+              </div>
+              <button class="submit-btn">Edit Party</button>
             </form>
         </div>
       </div>

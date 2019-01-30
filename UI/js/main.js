@@ -18,8 +18,6 @@ var span2 = document.getElementsByClassName("close2")[0];
 
 
 
-
-
 btn.onclick = function() {
   modal.style.display = "block";
 }
