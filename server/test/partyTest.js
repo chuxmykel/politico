@@ -7,11 +7,11 @@ import parties from '../app/model/parties';
 import server from '../server';
 
 const log = debug('app');
-const should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
 
-const versionedEndPoint = '/api/v1/parties';
+const versionedEndPoint = '/api/v1/parties/';
 
 describe(`POST/ ${versionedEndPoint}`, () => {
   it('Should add a party', (done) => {
@@ -31,7 +31,6 @@ describe(`POST/ ${versionedEndPoint}`, () => {
         res.body.party.should.have.property('name');
         res.body.party.should.have.property('hqAddress');
         res.body.party.should.have.property('logoUrl');
-        log(res.body);
         done();
       });
   });
@@ -50,6 +49,23 @@ describe(`GET/ ${versionedEndPoint}`, () => {
           party.hqAddress.should.be.a('string');
           party.logoUrl.should.be.a('string');
         });
+        done();
+      });
+  });
+});
+
+describe(`GET/ ${versionedEndPoint}/id`, () => {
+  it('Should get one party', (done) => {
+    const id = 3;
+    chai.request(server)
+      .get(`${versionedEndPoint}${id}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.party.should.be.a('object');
+        res.body.party.should.have.property('id');
+        res.body.party.should.have.property('name');
+        res.body.party.should.have.property('hqAddress');
+        res.body.party.should.have.property('logoUrl');
         log(res.body);
         done();
       });
