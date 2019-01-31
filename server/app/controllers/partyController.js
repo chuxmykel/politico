@@ -7,17 +7,17 @@ class PartyController {
     if (!req.body.name) {
       res.status(400).send({
         status: 400,
-        message: 'Party name is required'
+        error: 'Party name is required'
       });
     } else if (!req.body.hqAddress) {
       res.status(400).send({
         status: 400,
-        message: 'HQ address is required'
+        error: 'HQ address is required'
       });
     } else if (!req.body.logoUrl) {
       res.status(400).send({
         status: 400,
-        message: 'Logo Url is required'
+        error: 'Logo Url is required'
       });
     } else {
       const party = {
@@ -34,7 +34,13 @@ class PartyController {
       });
     }
   }
-  // add one party ended
+
+  getAllParties(req, res) {
+    res.status(200).send({
+      status: 200,
+      parties
+    });
+  }
 }
 
 const partyController = new PartyController();
