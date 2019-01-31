@@ -13,8 +13,8 @@ chai.use(chaiHttp);
 
 const versionedEndPoint = '/api/v1/parties';
 
-describe(`/POST ${versionedEndPoint}`, () => {
-  it('it should add users', (done) => {
+describe(`POST/ ${versionedEndPoint}`, () => {
+  it('Should add a party', (done) => {
     const party = {
       id: parties.length + 1,
       name: 'WAP',
@@ -31,6 +31,25 @@ describe(`/POST ${versionedEndPoint}`, () => {
         res.body.party.should.have.property('name');
         res.body.party.should.have.property('hqAddress');
         res.body.party.should.have.property('logoUrl');
+        log(res.body);
+        done();
+      });
+  });
+});
+
+describe(`GET/ ${versionedEndPoint}`, () => {
+  it('Should get all parties', (done) => {
+    chai.request(server)
+      .get(versionedEndPoint)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.parties.forEach((party) => {
+          party.should.be.a('object');
+          party.id.should.be.a('number');
+          party.name.should.be.a('string');
+          party.hqAddress.should.be.a('string');
+          party.logoUrl.should.be.a('string');
+        });
         log(res.body);
         done();
       });
