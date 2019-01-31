@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable comma-dangle */
 /* eslint-disable class-methods-use-this */
 import parties from '../model/parties';
@@ -39,6 +40,23 @@ class PartyController {
     res.status(200).send({
       status: 200,
       parties
+    });
+  }
+
+  getOneParty(req, res) {
+    // Check if it's req.body or req.params
+    const id = parseInt(req.params.id);
+    parties.forEach((party) => {
+      if (party.id === id) {
+        res.status(200).send({
+          status: 200,
+          party
+        });
+      }
+    });
+    res.status(404).send({
+      status: 404,
+      error: 'Resource not found'
     });
   }
 }
