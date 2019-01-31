@@ -7,45 +7,113 @@
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Abel|Kumar+One+Outline" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <script src="js/main.js"></script>
   <title>Politico</title>
 </head>
 
 <body>
-  <header>
-    <div class="header-logo">
-      <p class="logo"><span class="first-letter">p</span>olitico</p>
+  <div class="page">
+    <header>
+      <div class="header-logo">
+        <p class="logo"><span class="first-letter">p</span>olitico</p>
+      </div>
+      <div class="nav-container">
+        <ul class="top-nav">
+          <li><a href="results.html">Standings</a></li>
+          <li><a href="admin.html">Admin <i class="fas fa-lock"></i></a></li>
+        </ul>
+      </div>
+    </header>
+    <div class="body-container profile">
+      <h1>admin <i class="fas fa-lock"></i></h1>
+      <div class="profile-image">
+        <img src="img/my_profile.jpg" id="output"></img>
+        <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+        <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
+      </div>
+      <div class="profile-info">
+        <h4>Name Container</h4>
+        <p>email@container.com</p>
+        <p>phone number container</p>
+      </div>
+      <br>
+      <div id="vote-btn">
+        <a id="myBtn">Create Party</a>
+        <a id="myBtn1">Create Gov't Office</a>
+        <a id="myBtn2">Edit/Delete Party</a>
+      </div>
+  
     </div>
-    <div class="nav-container">
-      <ul class="top-nav">
-        <li><a href="#">Standings</a></li>
-        <li><a href="admin.html"><i class="fas fa-lock"></i></a></li>
-      </ul>
-    </div>
-  </header>
-  <div class="body-container profile">
-    <h1>admin <i class="fas fa-lock"></i></h1>
-    <div class="profile-image">
-      <img id="output"></img>
-      <input type="file" accept="image/jpeg" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-      <p class="image-p"><label for="file"><i class="fas fa-user-edit"></i> Upload Image</label></p>
-    </div>
-    <div class="profile-info">
-      <h4>Name Container</h4>
-      <p>email@container.com</p>
-      <p>phone number container</p>
-    </div>
-    <br>
-    <div id="vote-btn">
-      <a href="#">Create Party</a>
-      <a href="#">Create Gov't Office</a>
-      <a href="#">Edit/Delete Party</a>
-    </div>
-
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form action="" method="">
+              <div class="form-segment">
+                <div class="form-label"><label>Party Name</label></div>
+                <input class="form-input" type="text" name="party-name" placeholder="Enter Party Name">
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>HQ Address</label></div>
+                <input class="form-input" type="text" name="hqAddress" placeholder="Enter Address">
+              </div>
+              <button id ="submit" class="submit-btn">Create Party</button>
+            </form>
+        </div>
+      </div>
+      <!-- Modal 2 -->
+      <div id="myModal1" class="modal">
+        <div class="modal-content">
+          <span class="close1">&times;</span>
+          <form action="" method="">
+              <div class="form-segment">
+                <div class="form-label"><label>Office Name</label></div>
+                <input class="form-input" type="text" name="office-name" placeholder="Enter Office Name">
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>Office Type</label></div>
+                <input class="form-input" type="text" name="office-type" placeholder="Enter Office Type">
+              </div>
+              <button id ="submit" class="submit-btn">Create Office</button>
+            </form>
+        </div>
+      </div>
+      <!-- Modal 3 -->
+      <div id="myModal2" class="modal large">
+        <div class="modal-content">
+          <span class="close2">&times;</span>
+          <form action="" method="">
+              <div class="form-segment">
+                <div class="form-label"><label>Select Party to delete</label></div>
+                <select class ="form-input" name="" id="">
+                  <option value="">PDP</option>
+                  <option value="">APC</option>
+                </select>
+              </div>
+              <button class="submit-btn">Delete Party</button>
+              <br><br>
+              <div class="form-segment">
+                <div class="form-label"><label>Edit Party</label></div>
+                <select class ="form-input" name="" id="">
+                  <option value="">PDP</option>
+                  <option value="">APC</option>
+                </select>
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>Party Name</label></div>
+                <input class="form-input" type="text" name="party-name" placeholder="Enter New Party Name">
+              </div>
+              <div class="form-segment">
+                <div class="form-label"><label>HQ Address</label></div>
+                <input class="form-input" type="text" name="hqAddress" placeholder="Enter New Address">
+              </div>
+              <button class="submit-btn">Edit Party</button>
+            </form>
+        </div>
+      </div>
+    <footer>
+      <p>Copyright &copy; Politico 2019</p>
+    </footer>
   </div>
-  <footer>
-    <p>Copyright &copy; Politico 2019</p>
-  </footer>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
