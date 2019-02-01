@@ -336,7 +336,7 @@ footer {
 }
 
 /* The Close Button */
-.close, .close1, .close2 {
+.close, .close1, .close2, .close0 {
   color: #778da9;
   float: right;
   font-size: 28px;
@@ -346,9 +346,11 @@ footer {
 .close:hover,
 .close1:hover,
 .close2:hover,
+.close0:hover,
 .close:focus,
 .close1:focus,
-.close2:focus {
+.close2:focus,
+.close0:focus {
   color: #1b263b;
   text-decoration: none;
   cursor: pointer;
@@ -356,7 +358,8 @@ footer {
 
 @media only screen and (min-width: 768px) {
   .modal-content {
-    margin: 15% auto;
+    margin: 60px auto;
+    width: 50%;
   }
 }
 
@@ -385,7 +388,8 @@ footer {
   }
 
   .modal-content {
-    margin: 15% auto;
+    margin: 60px auto auto auto;
+    width: 50%;
   }
 }
 
