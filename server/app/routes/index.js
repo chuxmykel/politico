@@ -32,4 +32,7 @@ router.delete(`${partyEndPoint}:id`, PartyController.deleteParty);
 // Create an office
 router.post(officeEndPoint, OfficeController.addOffice);
 
+// Get all offices
+router.get(officeEndPoint, OfficeController.getAllOffices);
+
 export default router;

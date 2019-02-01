@@ -28,6 +28,13 @@ class OfficeController {
       });
     }
   }
+
+  getAllOffices(req, res) {
+    res.status(200).send({
+      status: 200,
+      offices
+    });
+  }
 }
 
 const officeController = new OfficeController();
