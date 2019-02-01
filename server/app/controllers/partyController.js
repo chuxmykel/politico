@@ -87,6 +87,23 @@ class PartyController {
       error: 'Party does not exist'
     });
   }
+
+  deleteParty(req, res) {
+    const id = parseInt(req.params.id);
+    parties.forEach((party) => {
+      if (party.id === id) {
+        delete parties[id - 1];
+        res.status(200).send({
+          status: 200,
+          parties
+        });
+      }
+    });
+    res.status(404).send({
+      status: 404,
+      error: 'Resource not found'
+    });
+  }
 }
 
 const partyController = new PartyController();

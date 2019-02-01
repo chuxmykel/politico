@@ -2,11 +2,11 @@
 /* eslint-disable comma-dangle */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import debug from 'debug';
+// import debug from 'debug';
 import parties from '../app/model/parties';
 import server from '../server';
 
-const log = debug('app');
+// const log = debug('app');
 chai.should();
 
 chai.use(chaiHttp);
@@ -54,7 +54,7 @@ describe('Party Tests', () => {
         });
     });
   });
-  describe(`GET/ ${versionedEndPoint}/id`, () => {
+  describe(`GET/ ${versionedEndPoint}id`, () => {
     it('Should get one party', (done) => {
       const id = 3;
       chai.request(server)
@@ -70,7 +70,7 @@ describe('Party Tests', () => {
         });
     });
   });
-  describe(`PUT/ ${versionedEndPoint}/id`, () => {
+  describe(`PUT/ ${versionedEndPoint}id`, () => {
     it('Should edit a party', (done) => {
       const party = {
         id: parties.length + 1,
@@ -89,7 +89,17 @@ describe('Party Tests', () => {
           res.body.party.should.have.property('name');
           res.body.party.should.have.property('hqAddress');
           res.body.party.should.have.property('logoUrl');
-          log(res.body);
+          done();
+        });
+    });
+  });
+  describe(`DELETE/ ${versionedEndPoint}id`, () => {
+    it('Should delete a party', (done) => {
+      const id = 5;
+      chai.request(server)
+        .put(`${versionedEndPoint}${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });

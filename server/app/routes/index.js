@@ -18,4 +18,7 @@ router.get(`${versionedEndPoint}:id`, PartyController.getOneParty);
 // Edit a specific party
 router.put(`${versionedEndPoint}:id`, PartyController.editParty);
 
+// Delete a specific party
+router.delete(`${versionedEndPoint}:id`, PartyController.deleteParty);
+
 export default router;
