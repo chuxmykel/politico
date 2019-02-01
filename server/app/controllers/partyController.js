@@ -5,7 +5,7 @@
 import parties from '../model/parties';
 
 class PartyController {
-  addOneParty(req, res) {
+  addParty(req, res) {
     if (!req.body.name) {
       res.status(400).send({
         status: 400,

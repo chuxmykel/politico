@@ -1,24 +1,35 @@
 import express from 'express';
 import PartyController from '../controllers/partyController';
+import OfficeController from '../controllers/officeController';
 
 const router = express.Router();
-const versionedEndPoint = '/api/v1/parties/';
+const partyEndPoint = '/api/v1/parties/';
+const officeEndPoint = '/api/v1/offices/';
 
-//  party Routes
+/**
+    Party routes
+*/
 
-//  Create one party
-router.post(versionedEndPoint, PartyController.addOneParty);
+// Create a party
+router.post(partyEndPoint, PartyController.addParty);
 
-//  Get all parties
-router.get(versionedEndPoint, PartyController.getAllParties);
+// Get all parties
+router.get(partyEndPoint, PartyController.getAllParties);
 
-// Get specific party
-router.get(`${versionedEndPoint}:id`, PartyController.getOneParty);
+// Get a specific party
+router.get(`${partyEndPoint}:id`, PartyController.getOneParty);
 
 // Edit a specific party
-router.put(`${versionedEndPoint}:id`, PartyController.editParty);
+router.put(`${partyEndPoint}:id`, PartyController.editParty);
 
 // Delete a specific party
-router.delete(`${versionedEndPoint}:id`, PartyController.deleteParty);
+router.delete(`${partyEndPoint}:id`, PartyController.deleteParty);
+
+/**
+    Office routes
+*/
+
+// Create an office
+router.post(officeEndPoint, OfficeController.addOffice);
 
 export default router;
