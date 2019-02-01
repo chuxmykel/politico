@@ -127,4 +127,19 @@ describe('Office Tests', () => {
         });
     });
   });
+  describe(`GET/ ${officeEndPoint}`, () => {
+    it('Should get all offices', (done) => {
+      chai.request(server)
+        .get(officeEndPoint)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.offices.forEach((office) => {
+            office.should.be.a('object');
+            office.id.should.be.a('number');
+            office.type.should.be.a('string');
+          });
+          done();
+        });
+    });
+  });
 });
