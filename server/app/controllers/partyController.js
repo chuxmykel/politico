@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable radix */
 /* eslint-disable comma-dangle */
 /* eslint-disable class-methods-use-this */
@@ -44,7 +45,6 @@ class PartyController {
   }
 
   getOneParty(req, res) {
-    // Check if it's req.body or req.params
     const id = parseInt(req.params.id);
     parties.forEach((party) => {
       if (party.id === id) {
@@ -57,6 +57,34 @@ class PartyController {
     res.status(404).send({
       status: 404,
       error: 'Resource not found'
+    });
+  }
+
+  editParty(req, res) {
+    const id = parseInt(req.params.id);
+    const { name, hqAddress, logoUrl } = req.body;
+
+    parties.forEach((party) => {
+      if (party.id === id) {
+        if (name) {
+          party.name = name;
+        }
+        if (hqAddress) {
+          party.hqAddress = hqAddress;
+        }
+        if (logoUrl) {
+          party.logoUrl = logoUrl;
+        }
+        res.status(200).send({
+          status: 200,
+          party
+        });
+      }
+    });
+
+    res.status(404).send({
+      status: 404,
+      error: 'Party does not exist'
     });
   }
 }
