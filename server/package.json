@@ -6,7 +6,8 @@
   "scripts": {
     "test": "DEBUG=* mocha ./test/test.js -w --compilers js:babel-register",
     "dev": "DEBUG=* nodemon --exec babel-node server.js",
-    "start": "nodemon --exec babel-node server.js"
+    "start": "nodemon --exec babel-node server.js",
+    "make": "nodemon --exec babel-node server.js"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
