@@ -55,7 +55,7 @@ describe('Party Tests', () => {
     });
   });
   describe(`GET/ ${partyEndPoint}id`, () => {
-    it('Should get one party', (done) => {
+    it('Should get a specific party', (done) => {
       const id = 3;
       chai.request(server)
         .get(`${partyEndPoint}${id}`)
@@ -138,6 +138,21 @@ describe('Office Tests', () => {
             office.id.should.be.a('number');
             office.type.should.be.a('string');
           });
+          done();
+        });
+    });
+  });
+  describe(`GET/ ${officeEndPoint}id`, () => {
+    it('Should get a specific office', (done) => {
+      const id = 3;
+      chai.request(server)
+        .get(`${officeEndPoint}${id}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.office.should.be.a('object');
+          res.body.office.should.have.property('id');
+          res.body.office.should.have.property('type');
+          res.body.office.should.have.property('name');
           done();
         });
     });

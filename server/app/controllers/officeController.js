@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable comma-dangle */
 /* eslint-disable class-methods-use-this */
 import offices from '../model/offices';
@@ -33,6 +34,22 @@ class OfficeController {
     res.status(200).send({
       status: 200,
       offices
+    });
+  }
+
+  getOneOffice(req, res) {
+    const id = parseInt(req.params.id);
+    offices.forEach((office) => {
+      if (office.id === id) {
+        res.status(200).send({
+          status: 200,
+          office
+        });
+      }
+    });
+    res.status(404).send({
+      status: 404,
+      error: 'Resource not found'
     });
   }
 }
