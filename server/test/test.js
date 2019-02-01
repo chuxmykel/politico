@@ -2,19 +2,19 @@
 /* eslint-disable comma-dangle */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-// import debug from 'debug';
 import parties from '../app/model/parties';
+import offices from '../app/model/offices';
 import server from '../server';
 
-// const log = debug('app');
 chai.should();
 
 chai.use(chaiHttp);
 
-const versionedEndPoint = '/api/v1/parties/';
+const partyEndPoint = '/api/v1/parties/';
+const officeEndPoint = '/api/v1/offices/';
 
 describe('Party Tests', () => {
-  describe(`POST/ ${versionedEndPoint}`, () => {
+  describe(`POST/ ${partyEndPoint}`, () => {
     it('Should add a party', (done) => {
       const party = {
         id: parties.length + 1,
@@ -23,7 +23,7 @@ describe('Party Tests', () => {
         logoUrl: 'http://www.andelatest.com'
       };
       chai.request(server)
-        .post(versionedEndPoint)
+        .post(partyEndPoint)
         .send(party)
         .end((err, res) => {
           res.should.have.status(201);
@@ -37,10 +37,10 @@ describe('Party Tests', () => {
     });
   });
 
-  describe(`GET/ ${versionedEndPoint}`, () => {
+  describe(`GET/ ${partyEndPoint}`, () => {
     it('Should get all parties', (done) => {
       chai.request(server)
-        .get(versionedEndPoint)
+        .get(partyEndPoint)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.parties.forEach((party) => {
@@ -54,11 +54,11 @@ describe('Party Tests', () => {
         });
     });
   });
-  describe(`GET/ ${versionedEndPoint}id`, () => {
+  describe(`GET/ ${partyEndPoint}id`, () => {
     it('Should get one party', (done) => {
       const id = 3;
       chai.request(server)
-        .get(`${versionedEndPoint}${id}`)
+        .get(`${partyEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.party.should.be.a('object');
@@ -70,7 +70,7 @@ describe('Party Tests', () => {
         });
     });
   });
-  describe(`PUT/ ${versionedEndPoint}id`, () => {
+  describe(`PUT/ ${partyEndPoint}id`, () => {
     it('Should edit a party', (done) => {
       const party = {
         id: parties.length + 1,
@@ -80,7 +80,7 @@ describe('Party Tests', () => {
       };
       const id = 5;
       chai.request(server)
-        .put(`${versionedEndPoint}${id}`)
+        .put(`${partyEndPoint}${id}`)
         .send(party)
         .end((err, res) => {
           res.should.have.status(200);
@@ -93,13 +93,36 @@ describe('Party Tests', () => {
         });
     });
   });
-  describe(`DELETE/ ${versionedEndPoint}id`, () => {
+  describe(`DELETE/ ${partyEndPoint}id`, () => {
     it('Should delete a party', (done) => {
       const id = 5;
       chai.request(server)
-        .put(`${versionedEndPoint}${id}`)
+        .put(`${partyEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
+          done();
+        });
+    });
+  });
+});
+
+describe('Office Tests', () => {
+  describe(`POST/ ${officeEndPoint}`, () => {
+    it('Should add an office', (done) => {
+      const office = {
+        id: offices.length + 1,
+        type: 'Students Union Government',
+        name: 'Presidential'
+      };
+      chai.request(server)
+        .post(officeEndPoint)
+        .send(office)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.office.should.be.a('object');
+          res.body.office.should.have.property('id');
+          res.body.office.should.have.property('type');
+          res.body.office.should.have.property('name');
           done();
         });
     });
