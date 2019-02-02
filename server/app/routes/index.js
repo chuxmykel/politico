@@ -10,7 +10,7 @@ const officeEndPoint = '/api/v1/offices/';
 router.post(partyEndPoint, PartyController.addParty);
 router.get(partyEndPoint, PartyController.getAllParties);
 router.get(`${partyEndPoint}:id`, PartyController.getOneParty);
-router.put(`${partyEndPoint}:id`, PartyController.editParty);
+router.patch(`${partyEndPoint}:id/:name`, PartyController.editParty);
 router.delete(`${partyEndPoint}:id`, PartyController.deleteParty);
 
 // Office

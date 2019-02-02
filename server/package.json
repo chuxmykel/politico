@@ -4,7 +4,7 @@
   "description": "An online platform for free and fair elections",
   "main": "server.js",
   "scripts": {
-    "test": "DEBUG=* mocha ./test/test.js -w --compilers js:babel-register",
+    "test": "mocha ./test/test.js -w --compilers js:babel-register",
     "dev": "DEBUG=* nodemon --exec babel-node server.js",
     "start": "nodemon --exec babel-node server.js"
   },
