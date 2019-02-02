@@ -43,7 +43,7 @@ class PartyController {
     parties.forEach((party) => {
       const data = {
         id: party.id,
-        party: party.name,
+        name: party.name,
         logoUrl: party.logoUrl,
       };
       dataArray.push(data);

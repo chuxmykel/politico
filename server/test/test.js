@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable comma-dangle */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import parties from '../app/model/parties';
@@ -14,90 +13,81 @@ const partyEndPoint = '/api/v1/parties/';
 const officeEndPoint = '/api/v1/offices/';
 
 describe('Party Tests', () => {
-  describe(`POST/ ${partyEndPoint}`, () => {
+  describe(`POST ${partyEndPoint}`, () => {
     it('Should add a party', (done) => {
       const party = {
         id: parties.length + 1,
         name: 'WAP',
         hqAddress: 'Lagos Nigeria',
-        logoUrl: 'http://www.andelatest.com'
+        logoUrl: 'http://www.andelatest.com',
       };
       chai.request(server)
         .post(partyEndPoint)
         .send(party)
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.party.should.be.a('object');
-          res.body.party.should.have.property('id');
-          res.body.party.should.have.property('name');
-          res.body.party.should.have.property('hqAddress');
-          res.body.party.should.have.property('logoUrl');
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.have.property('id');
+          res.body.data[0].should.have.property('name');
           done();
         });
     });
   });
 
-  describe(`GET/ ${partyEndPoint}`, () => {
+  describe(`GET ${partyEndPoint}`, () => {
     it('Should get all parties', (done) => {
       chai.request(server)
         .get(partyEndPoint)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.parties.forEach((party) => {
-            party.should.be.a('object');
-            party.id.should.be.a('number');
-            party.name.should.be.a('string');
-            party.hqAddress.should.be.a('string');
-            party.logoUrl.should.be.a('string');
+          res.body.data.forEach((item) => {
+            item.should.be.a('object');
+            item.id.should.be.a('number');
+            item.name.should.be.a('string');
+            item.logoUrl.should.be.a('string');
           });
           done();
         });
     });
   });
-  describe(`GET/ ${partyEndPoint}id`, () => {
+  describe(`GET ${partyEndPoint}id`, () => {
     it('Should get a specific party', (done) => {
       const id = 3;
       chai.request(server)
         .get(`${partyEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.party.should.be.a('object');
-          res.body.party.should.have.property('id');
-          res.body.party.should.have.property('name');
-          res.body.party.should.have.property('hqAddress');
-          res.body.party.should.have.property('logoUrl');
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.have.property('id');
+          res.body.data[0].should.have.property('name');
+          res.body.data[0].should.have.property('logoUrl');
           done();
         });
     });
   });
-  describe(`PUT/ ${partyEndPoint}id`, () => {
+  describe(`PATCH ${partyEndPoint}id/name`, () => {
     it('Should edit a party', (done) => {
-      const party = {
-        id: parties.length + 1,
-        name: 'WAP',
-        hqAddress: 'Lagos Nigeria',
-        logoUrl: 'http://www.andelatest.com'
+      const input = {
+        name: 'andela',
       };
-      const id = 5;
+      const id = 1;
       chai.request(server)
-        .put(`${partyEndPoint}${id}`)
-        .send(party)
+        .patch(`${partyEndPoint}${id}/name`)
+        .send(input)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.party.should.be.a('object');
-          res.body.party.should.have.property('id');
-          res.body.party.should.have.property('name');
-          res.body.party.should.have.property('hqAddress');
-          res.body.party.should.have.property('logoUrl');
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.have.property('id');
+          res.body.data[0].should.have.property('name');
           done();
         });
     });
   });
-  describe(`DELETE/ ${partyEndPoint}id`, () => {
+  describe(`DELETE ${partyEndPoint}id`, () => {
     it('Should delete a party', (done) => {
       const id = 5;
       chai.request(server)
-        .put(`${partyEndPoint}${id}`)
+        .delete(`${partyEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
           done();
@@ -107,12 +97,12 @@ describe('Party Tests', () => {
 });
 
 describe('Office Tests', () => {
-  describe(`POST/ ${officeEndPoint}`, () => {
+  describe(`POST ${officeEndPoint}`, () => {
     it('Should add an office', (done) => {
       const office = {
         id: offices.length + 1,
         type: 'Students Union Government',
-        name: 'Presidential'
+        name: 'Presidential',
       };
       chai.request(server)
         .post(officeEndPoint)
@@ -127,7 +117,7 @@ describe('Office Tests', () => {
         });
     });
   });
-  describe(`GET/ ${officeEndPoint}`, () => {
+  describe(`GET ${officeEndPoint}`, () => {
     it('Should get all offices', (done) => {
       chai.request(server)
         .get(officeEndPoint)
@@ -142,7 +132,7 @@ describe('Office Tests', () => {
         });
     });
   });
-  describe(`GET/ ${officeEndPoint}id`, () => {
+  describe(`GET ${officeEndPoint}id`, () => {
     it('Should get a specific office', (done) => {
       const id = 3;
       chai.request(server)
