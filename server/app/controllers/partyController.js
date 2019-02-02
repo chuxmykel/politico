@@ -77,7 +77,7 @@ class PartyController {
 
   editParty(req, res) {
     const id = parseInt(req.params.id, 10);
-    const { name } = req.params;
+    const { name } = req.body;
 
     parties.forEach((party) => {
       if (party.id === id) {
