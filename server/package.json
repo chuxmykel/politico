@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha ./test/test.js -w --compilers js:babel-register",
-    "dev": "DEBUG=* nodemon --exec babel-node server.js",
     "start": "nodemon --exec babel-node server.js"
   },
   "author": "Chukwudi Ngwobia",
@@ -16,9 +15,10 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
-    "debug": "^4.1.1",
     "express": "^4.16.4",
-    "morgan": "^1.9.1"
+    "mocha": "^5.2.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -27,14 +27,9 @@
     "@babel/preset-env": "^7.3.1",
     "babel-cli": "^6.26.0",
     "babel-env": "^2.4.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.1",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "mocha": "^5.2.0",
     "nodemon": "^1.18.9"
   }
 }
