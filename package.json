@@ -4,8 +4,8 @@
   "description": "An online platform for free and fair elections",
   "main": "server.js",
   "scripts": {
-    "test": "mocha ./test/test.js -w --compilers js:babel-register",
-    "start": "nodemon --exec babel-node server.js"
+    "test": "mocha ./server/test/test.js -w --compilers js:babel-register",
+    "start": "nodemon --exec babel-node ./server/server.js"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
