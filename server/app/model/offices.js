@@ -1,19 +1,18 @@
-/* eslint-disable comma-dangle */
 const parties = [
   {
     id: 1,
     type: 'federal',
-    name: 'presidential'
+    name: 'presidential',
   },
   {
     id: 2,
     type: 'legislative',
-    name: 'senatorial'
+    name: 'senatorial',
   },
   {
     id: 3,
     type: 'state',
-    name: 'gubernatorial'
+    name: 'gubernatorial',
   },
 ];
 

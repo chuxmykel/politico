@@ -1,5 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable comma-dangle */
 /* eslint-disable class-methods-use-this */
 import offices from '../model/offices';
 
@@ -8,24 +6,24 @@ class OfficeController {
     if (!req.body.type) {
       res.status(400).send({
         status: 400,
-        error: 'Define office type'
+        error: 'Define office type',
       });
     } else if (!req.body.name) {
       res.status(400).send({
         status: 400,
-        error: 'Office name is required'
+        error: 'Office name is required',
       });
     } else {
       const office = {
         id: offices.length + 1,
         type: req.body.type,
-        name: req.body.name
+        name: req.body.name,
       };
       offices.push(office);
 
       res.status(201).send({
         status: 201,
-        office
+        office,
       });
     }
   }
@@ -33,23 +31,23 @@ class OfficeController {
   getAllOffices(req, res) {
     res.status(200).send({
       status: 200,
-      offices
+      offices,
     });
   }
 
   getOneOffice(req, res) {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id, 10);
     offices.forEach((office) => {
       if (office.id === id) {
         res.status(200).send({
           status: 200,
-          office
+          office,
         });
       }
     });
     res.status(404).send({
       status: 404,
-      error: 'Resource not found'
+      error: 'Resource not found',
     });
   }
 }
