@@ -11,7 +11,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./server -s",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build-babel"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
