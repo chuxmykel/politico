@@ -15,8 +15,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express.default.Router();
 
+var baseEndpoint = '/api/v1/';
 var partyEndPoint = '/api/v1/parties/';
-var officeEndPoint = '/api/v1/offices/'; // Party
+var officeEndPoint = '/api/v1/offices/'; // Home
+
+router.get(baseEndpoint, function (req, res) {
+  res.send('Welcome to politico');
+}); // Party
 
 router.post(partyEndPoint, _partyController.default.addParty);
 router.get(partyEndPoint, _partyController.default.getAllParties);

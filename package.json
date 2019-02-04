@@ -6,12 +6,12 @@
   "scripts": {
     "build": "npm run clean && npm run build-babel",
     "test": "nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:babel-register",
-    "start": "npm run build && node ./build/server.js",
+    "start": "node ./build/server.js",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build",
     "build-babel": "babel ./server -d ./build",
-    "heroku-postbuild": "npm install -g @babel/cli @babel/core && npm run build-babel"
+    "heroku-postbuild": "npm install -g @babel/cli @babel/core && npm run build"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
