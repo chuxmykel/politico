@@ -123,6 +123,10 @@ th, td {
   width: 60px;
 }
 
+.admin{
+  margin-right: 100px;
+}
+
 .sign-up:hover {
   background-color: #415a77;
 }
@@ -136,14 +140,27 @@ th, td {
   background-color: white;
 }
 
-.user-votes {
-  margin-top: 20px;
+.vote{
+  text-align: center;
 }
+
+td button{
+  height: 30px;
+  width: 60px;
+  color: #e0e1dd;
+  background-color: #0d1b2a;
+  border: 1px solid #0d1b2a;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.vote label{
+  font-size: 30px;
+} 
 
 .user-votes label{
   font-size: 30px;
 }
-
 
 .box h2{
   margin-left: 0;
@@ -200,13 +217,26 @@ input::placeholder {
   margin-top: 10px;
 }
 
+.submit-btn:hover{
+  background-color: #1b263b;
+}
+
 .fp-link {
   margin-top: 10px;
   text-align: center;
 }
 
-.fp-link a {
+.fp-link .toLink  {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
   color: #415a77;
+  font-size: 15px;
+}
+
+.toLink:hover{
+  color: #0d1b2a;
 }
 
 .profile-info {
@@ -283,6 +313,56 @@ footer {
   text-align: center;
 }
 
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 60% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close, .close1, .close2, .close0 {
+  color: #778da9;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close1:hover,
+.close2:hover,
+.close0:hover,
+.close:focus,
+.close1:focus,
+.close2:focus,
+.close0:focus {
+  color: #1b263b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .modal-content {
+    margin: 60px auto;
+    width: 50%;
+  }
+}
+
 @media only screen and (min-width: 1000px) {
 
   .nav-container {
@@ -306,4 +386,11 @@ footer {
   #vote-btn a {
     width: 200px;
   }
+
+  .modal-content {
+    margin: 60px auto auto auto;
+    width: 50%;
+  }
 }
+
+

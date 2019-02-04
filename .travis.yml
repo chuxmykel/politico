@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- '10'
+
+before_script:
+- npm install codeclimate-test-reporter istanbul -g
+
+after_script:
+- codeclimate-test-reporter < ./coverage/lcov.info
+
+after_success:
+- npm run coverage
+
+addons:
+  code_climate:
+      repo_token:
+        secure: "Nsi6rRRIuUQTza/qixYF6kou+v45Ac6fj4om5u90fKKRqxUe7REFgIG9papYiTXWz65hn1i4fGh00OkbzSiWp0hWLlf0MblPykKoVAU3gJAXU9nlcXYM4ZBFVyJ10TKmRP95duh2AH096x9HDAbAwY66zq34WW38YpgyqHxlRG8UbLdCmkQ8vDCz0oH1VTgKP1DQKO4TTZYKfnW8owQJi7dP378eluChsYOv4w+iykKt1HqPUolyQrif7FdOMepW9Y4SI1ze7mXJd7yjcjdldqGv4itwJYnnU0BJztINheEcq2QnipSMgfSNvbKVNLb1nfxgEneD3EIhNejEz8aCAE+n0VsqhQZOYqDdXLmm+pddV4rDn69+1etJ8+B5j58d4rKqp3MPUwqM83m3nqoQgY0A0duY7i/swYifwLeDnweqXYDsF/LMD0VV7bGdSRmgvImlv41q4/pZzdBGoba9WvBmH5tBgnAGsRMEzxZGkJG2DkYrPT6MVy++CS0oeTiqjncgImKJfEkYuSdGzhHceG7qJgCfIyw3lQP3Hcpos4PsNSOQY67CJerOwKcjwOiDl4+mUBPw9Hsd8zSyWEzyCh47Asn8/hCdrGnMYj39H6UVs2LPsWq+uSDpHZgTYKf7K1Vm+uUy5CHrRrxzZIPHBipRU1bH7WLA44AVrdJbH/E="
