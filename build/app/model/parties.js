@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 var parties = [{
   id: 1,
   name: 'PDP',
@@ -44,6 +45,5 @@ var parties = [{
   hqAddress: 'Osun State, Nigeria',
   logoUrl: 'http://qed.com'
 }];
-
-exports.default = parties;
-//# sourceMappingURL=parties.js.map
+var _default = parties;
+exports.default = _default;

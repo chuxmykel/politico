@@ -1,28 +1,29 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-disable no-param-reassign */
-/* eslint-disable class-methods-use-this */
-
-
-var _parties = require('../model/parties');
-
-var _parties2 = _interopRequireDefault(_parties);
+var _parties = _interopRequireDefault(require("../model/parties"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var PartyController = function () {
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PartyController =
+/*#__PURE__*/
+function () {
   function PartyController() {
     _classCallCheck(this, PartyController);
   }
 
   _createClass(PartyController, [{
-    key: 'addParty',
+    key: "addParty",
     value: function addParty(req, res) {
       if (!req.body.name) {
         res.status(400).send({
@@ -41,12 +42,13 @@ var PartyController = function () {
         });
       } else {
         var party = {
-          id: _parties2.default.length + 1,
+          id: _parties.default.length + 1,
           name: req.body.name,
           hqAddress: req.body.hqAddress,
           logoUrl: req.body.logoUrl
         };
-        _parties2.default.push(party);
+
+        _parties.default.push(party);
 
         res.status(201).send({
           status: 201,
@@ -58,10 +60,11 @@ var PartyController = function () {
       }
     }
   }, {
-    key: 'getAllParties',
+    key: "getAllParties",
     value: function getAllParties(req, res) {
       var dataArray = [];
-      _parties2.default.forEach(function (party) {
+
+      _parties.default.forEach(function (party) {
         var data = {
           id: party.id,
           name: party.name,
@@ -76,10 +79,11 @@ var PartyController = function () {
       });
     }
   }, {
-    key: 'getOneParty',
+    key: "getOneParty",
     value: function getOneParty(req, res) {
       var id = parseInt(req.params.id, 10);
-      _parties2.default.forEach(function (party) {
+
+      _parties.default.forEach(function (party) {
         if (party.id === id) {
           res.status(200).send({
             status: 200,
@@ -91,19 +95,19 @@ var PartyController = function () {
           });
         }
       });
+
       res.status(404).send({
         status: 404,
         error: 'Party does not exist'
       });
     }
   }, {
-    key: 'editParty',
+    key: "editParty",
     value: function editParty(req, res) {
       var id = parseInt(req.params.id, 10);
       var name = req.body.name;
 
-
-      _parties2.default.forEach(function (party) {
+      _parties.default.forEach(function (party) {
         if (party.id === id) {
           if (name) {
             res.status(200).send({
@@ -128,20 +132,22 @@ var PartyController = function () {
       });
     }
   }, {
-    key: 'deleteParty',
+    key: "deleteParty",
     value: function deleteParty(req, res) {
       var id = parseInt(req.params.id, 10);
-      _parties2.default.forEach(function (party) {
+
+      _parties.default.forEach(function (party) {
         if (party.id === id) {
-          delete _parties2.default[id - 1];
+          delete _parties.default[id - 1];
           res.status(200).send({
             status: 200,
             data: [{
-              message: 'Party with id: ' + id + ' deleted successfully'
+              message: "Party with id: ".concat(id, " deleted successfully")
             }]
           });
         }
       });
+
       res.status(404).send({
         status: 404,
         error: 'Party does not exist or has already been deleted'
@@ -153,6 +159,5 @@ var PartyController = function () {
 }();
 
 var partyController = new PartyController();
-
-exports.default = partyController;
-//# sourceMappingURL=partyController.js.map
+var _default = partyController;
+exports.default = _default;

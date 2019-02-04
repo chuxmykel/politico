@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 var parties = [{
   id: 1,
   type: 'federal',
@@ -16,6 +17,5 @@ var parties = [{
   type: 'state',
   name: 'gubernatorial'
 }];
-
-exports.default = parties;
-//# sourceMappingURL=offices.js.map
+var _default = parties;
+exports.default = _default;
