@@ -6,7 +6,6 @@
   "scripts": {
     "test": "nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:babel-register",
     "start": "npm run build && node ./build/server.js",
-    "dev": "nodemon --exec babel-node ./server/server.js",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build && mkdir build",
