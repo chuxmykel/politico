@@ -3,8 +3,15 @@ import PartyController from '../controllers/partyController';
 import OfficeController from '../controllers/officeController';
 
 const router = express.Router();
+const baseEndpoint = '/api/v1/';
 const partyEndPoint = '/api/v1/parties/';
 const officeEndPoint = '/api/v1/offices/';
+
+
+// Home
+router.get(baseEndpoint, (req, res) => {
+  res.send('Welcome to politico');
+});
 
 // Party
 router.post(partyEndPoint, PartyController.addParty);
