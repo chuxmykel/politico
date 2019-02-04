@@ -10,7 +10,8 @@
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build ./server -s"
+    "build-babel": "babel -d ./build ./server -s",
+    "heroku-postbuild": "npm run build-babel"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
