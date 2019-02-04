@@ -5,10 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:babel-register",
-    "start": "nodemon --exec babel-node ./server/server.js",
+    "start": "npm run build && node ./build/index.js",
+    "dev": "nodemon --exec babel-node ./server/server.js",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./server -s",
+    "build": "npm run clean && npm run build-babel"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
