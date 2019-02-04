@@ -25,38 +25,37 @@ var PartyController = function () {
     key: 'addParty',
     value: function addParty(req, res) {
       if (!req.body.name) {
-        return res.status(400).send({
+        res.status(400).send({
           status: 400,
           error: 'Party name is required'
         });
-      }
-      if (!req.body.hqAddress) {
-        return res.status(400).send({
+      } else if (!req.body.hqAddress) {
+        res.status(400).send({
           status: 400,
           error: 'HQ address is required'
         });
-      }
-      if (!req.body.logoUrl) {
-        return res.status(400).send({
+      } else if (!req.body.logoUrl) {
+        res.status(400).send({
           status: 400,
           error: 'Logo Url is required'
         });
-      }
-      var party = {
-        id: _parties2.default.length + 1,
-        name: req.body.name,
-        hqAddress: req.body.hqAddress,
-        logoUrl: req.body.logoUrl
-      };
-      _parties2.default.push(party);
+      } else {
+        var party = {
+          id: _parties2.default.length + 1,
+          name: req.body.name,
+          hqAddress: req.body.hqAddress,
+          logoUrl: req.body.logoUrl
+        };
+        _parties2.default.push(party);
 
-      return res.status(201).send({
-        status: 201,
-        data: [{
-          id: party.id,
-          name: party.name
-        }]
-      });
+        res.status(201).send({
+          status: 201,
+          data: [{
+            id: party.id,
+            name: party.name
+          }]
+        });
+      }
     }
   }, {
     key: 'getAllParties',
@@ -71,7 +70,7 @@ var PartyController = function () {
         dataArray.push(data);
       });
 
-      return res.status(200).send({
+      res.status(200).send({
         status: 200,
         data: dataArray
       });
@@ -82,7 +81,7 @@ var PartyController = function () {
       var id = parseInt(req.params.id, 10);
       _parties2.default.forEach(function (party) {
         if (party.id === id) {
-          return res.status(200).send({
+          res.status(200).send({
             status: 200,
             data: [{
               id: party.id,
@@ -92,7 +91,7 @@ var PartyController = function () {
           });
         }
       });
-      return res.status(404).send({
+      res.status(404).send({
         status: 404,
         error: 'Party does not exist'
       });
@@ -107,22 +106,23 @@ var PartyController = function () {
       _parties2.default.forEach(function (party) {
         if (party.id === id) {
           if (name) {
-            return res.status(200).send({
+            res.status(200).send({
               status: 200,
               data: [{
                 id: party.id,
                 name: name
               }]
             });
+          } else {
+            res.status(400).send({
+              status: 400,
+              error: 'Party name is required'
+            });
           }
-          return res.status(400).send({
-            status: 400,
-            error: 'Party name is required'
-          });
         }
       });
 
-      return res.status(404).send({
+      res.status(404).send({
         status: 404,
         error: 'Party does not exist'
       });
@@ -134,7 +134,7 @@ var PartyController = function () {
       _parties2.default.forEach(function (party) {
         if (party.id === id) {
           delete _parties2.default[id - 1];
-          return res.status(200).send({
+          res.status(200).send({
             status: 200,
             data: [{
               message: 'Party with id: ' + id + ' deleted successfully'
@@ -142,7 +142,7 @@ var PartyController = function () {
           });
         }
       });
-      return res.status(404).send({
+      res.status(404).send({
         status: 404,
         error: 'Party does not exist or has already been deleted'
       });
