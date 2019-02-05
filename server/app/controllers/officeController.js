@@ -1,7 +1,18 @@
 /* eslint-disable class-methods-use-this */
 import offices from '../model/offices';
 
+/** @class OfficeController
+ * @description Controller class for office routes
+ * @exports officeController
+ */
 class OfficeController {
+  /**
+     * @method addOffice
+     * @description Adds one office to the data structure
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   addOffice(req, res) {
     if (!req.body.type) {
       res.status(400).send({
@@ -28,6 +39,13 @@ class OfficeController {
     }
   }
 
+  /**
+     * @method getAllOffices
+     * @description Gets a list of all the offices
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   getAllOffices(req, res) {
     res.status(200).send({
       status: 200,
@@ -35,6 +53,13 @@ class OfficeController {
     });
   }
 
+  /**
+     * @method getOneOffice
+     * @description Gets a specific office from the list
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   getOneOffice(req, res) {
     const id = parseInt(req.params.id, 10);
     offices.forEach((office) => {
