@@ -1,8 +1,18 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 import parties from '../model/parties';
 
+/** @class PartyController
+ * @description Controller class for party routes
+ * @exports partyController
+ */
 class PartyController {
+  /**
+     * @method addParty
+     * @description Adds one party to the data structure
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   addParty(req, res) {
     if (!req.body.name) {
       res.status(400).send({
@@ -38,6 +48,13 @@ class PartyController {
     }
   }
 
+  /**
+     * @method getAllParties
+     * @description Gets a list of all the parties
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   getAllParties(req, res) {
     const dataArray = [];
     parties.forEach((party) => {
@@ -55,6 +72,13 @@ class PartyController {
     });
   }
 
+  /**
+     * @method getOneParty
+     * @description Gets a specific party from the list
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   getOneParty(req, res) {
     const id = parseInt(req.params.id, 10);
     parties.forEach((party) => {
@@ -75,6 +99,13 @@ class PartyController {
     });
   }
 
+  /**
+     * @method editParty
+     * @description Edit a specific party from the list
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   editParty(req, res) {
     const id = parseInt(req.params.id, 10);
     const { name } = req.body;
@@ -104,6 +135,13 @@ class PartyController {
     });
   }
 
+  /**
+     * @method deleteParty
+     * @description Deletes a specific office from the list
+     * @param {object} req - The request object.
+     * @param {object} res - The response object.
+     * @returns {object} JSON API Response.
+     */
   deleteParty(req, res) {
     const id = parseInt(req.params.id, 10);
     parties.forEach((party) => {
