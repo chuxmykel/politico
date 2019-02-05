@@ -7,6 +7,7 @@
     "build": "npm run clean && npm run build-babel",
     "test": "nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:babel-register",
     "start": "node ./build/server.js",
+    "dev": "nodemon --exec babel-node ./server/server.js",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build",
@@ -16,6 +17,8 @@
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
   "dependencies": {
+    "babel-istanbul": "^0.12.2",
+    "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
