@@ -12,6 +12,8 @@ _chai.default.should();
 
 _chai.default.use(_chaiHttp.default);
 
+var baseEndPoint = '/';
+var homeEndPoint = '/api/v1/';
 var partyEndPoint = '/api/v1/parties/';
 var officeEndPoint = '/api/v1/offices/';
 describe('Party Tests', function () {
@@ -139,6 +141,24 @@ describe('Office Tests', function () {
       var id = 3;
 
       _chai.default.request(_server.default).get("".concat(officeEndPoint).concat(id)).end(function (err, res) {
+        res.should.have.status(200);
+        done();
+      });
+    });
+  });
+});
+describe('Home Routes Tests', function () {
+  describe("GET ".concat(homeEndPoint), function () {
+    it('Should be successful', function (done) {
+      _chai.default.request(_server.default).get(homeEndPoint).end(function (err, res) {
+        res.should.have.status(200);
+        done();
+      });
+    });
+  });
+  describe("GET ".concat(baseEndPoint), function () {
+    it('Should be successful', function (done) {
+      _chai.default.request(_server.default).get(baseEndPoint).end(function (err, res) {
         res.should.have.status(200);
         done();
       });

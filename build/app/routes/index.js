@@ -21,10 +21,10 @@ var partyEndPoint = '/api/v1/parties/';
 var officeEndPoint = '/api/v1/offices/'; // Home
 
 router.get(homeEndPoint, function (req, res) {
-  res.redirect('/api/v1/');
+  res.status(200).redirect('/api/v1/');
 });
 router.get(baseEndPoint, function (req, res) {
-  res.send('Welcome to politico');
+  res.status(200).send('Welcome to politico');
 }); // Party
 
 router.post(partyEndPoint, _partyController.default.addParty);
