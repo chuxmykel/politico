@@ -2,11 +2,8 @@ language: node_js
 node_js:
 - '10'
 
-services:
-  - postgresql
-  
 before_script:
-- psql -c 'create database travis_ci_test;' -U postgres && npm install codeclimate-test-reporter istanbul @babel/cli @babel/core -g && npm run build
+- npm install codeclimate-test-reporter istanbul @babel/cli @babel/core -g && npm run build
 
 after_script:
   - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/backend/.resultset.json # Format backend coverage
