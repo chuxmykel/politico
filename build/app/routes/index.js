@@ -11,17 +11,20 @@ var _partyController = _interopRequireDefault(require("../controllers/partyContr
 
 var _officeController = _interopRequireDefault(require("../controllers/officeController"));
 
+var _userController = _interopRequireDefault(require("../controllers/userController"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express.default.Router();
 
 var homeEndPoint = '/';
 var baseEndPoint = '/api/v1/';
-var partyEndPoint = '/api/v1/parties/';
-var officeEndPoint = '/api/v1/offices/'; // Home
+var partyEndPoint = "".concat(baseEndPoint, "parties/");
+var officeEndPoint = "".concat(baseEndPoint, "offices/");
+var authEndPoint = "".concat(baseEndPoint, "auth/"); // Home
 
 router.get(homeEndPoint, function (req, res) {
-  res.status(200).redirect('/api/v1/');
+  res.status(200).redirect(baseEndPoint);
 });
 router.get(baseEndPoint, function (req, res) {
   res.status(200).send('Welcome to politico');
@@ -35,6 +38,8 @@ router.delete("".concat(partyEndPoint, ":id"), _partyController.default.deletePa
 
 router.post(officeEndPoint, _officeController.default.addOffice);
 router.get(officeEndPoint, _officeController.default.getAllOffices);
-router.get("".concat(officeEndPoint, ":id"), _officeController.default.getOneOffice);
+router.get("".concat(officeEndPoint, ":id"), _officeController.default.getOneOffice); // Users
+
+router.post("".concat(authEndPoint, "signup"), _userController.default.registerUser);
 var _default = router;
 exports.default = _default;
