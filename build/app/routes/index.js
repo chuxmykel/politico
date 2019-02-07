@@ -15,11 +15,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express.default.Router();
 
-var baseEndpoint = '/api/v1/';
+var homeEndPoint = '/';
+var baseEndPoint = '/api/v1/';
 var partyEndPoint = '/api/v1/parties/';
 var officeEndPoint = '/api/v1/offices/'; // Home
 
-router.get(baseEndpoint, function (req, res) {
+router.get(homeEndPoint, function (req, res) {
+  res.redirect('/api/v1/');
+});
+router.get(baseEndPoint, function (req, res) {
   res.send('Welcome to politico');
 }); // Party
 

@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "build": "npm run clean && npm run build-babel",
-    "test": "nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:@babel/register",
-    "start": "node ./build/server.js",
+    "test": "npm run reset-db && nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:@babel/register",
+    "start": "npm run build && node ./build/server.js",
     "dev": "nodemon --exec babel-node ./server/server.js",
+    "reset-db": "node ./server/app/model/db dropTables && node ./server/app/model/db createTables",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build",
@@ -17,12 +18,14 @@
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
   "dependencies": {
-    "babel-istanbul": "^0.12.2",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "mocha": "^5.2.0"
+    "make-runnable": "^1.3.6",
+    "mocha": "^5.2.0",
+    "pg": "^7.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -1,33 +1,64 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import parties from '../app/model/parties';
-import offices from '../app/model/offices';
 import server from '../server';
 
 chai.should();
 
 chai.use(chaiHttp);
 
+const baseEndPoint = '/';
+const homeEndPoint = '/api/v1/';
 const partyEndPoint = '/api/v1/parties/';
 const officeEndPoint = '/api/v1/offices/';
 
 describe('Party Tests', () => {
   describe(`POST ${partyEndPoint}`, () => {
-    it('Should add a party', (done) => {
-      const party = {
-        id: parties.length + 1,
-        name: 'WAP',
-        hqAddress: 'Lagos Nigeria',
-        logoUrl: 'http://www.andelatest.com',
-      };
+    it('Should return 200 on successfully adding a party', (done) => {
       chai.request(server)
         .post(partyEndPoint)
-        .send(party)
+        .send({
+          name: 'WAP',
+          hqAddress: 'Lagos Nigeria',
+          logoUrl: 'http://www.andelatest.com',
+        })
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.have.property('id');
-          res.body.data[0].should.have.property('name');
+          done();
+        });
+    });
+    it('Should return 400 for a post request without a party name', (done) => {
+      chai.request(server)
+        .post(partyEndPoint)
+        .send({
+          hqAddress: 'Kaduna',
+          logoUrl: 'http://www.atest.com',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+    it('Should return 400 for a post request without an address', (done) => {
+      chai.request(server)
+        .post(partyEndPoint)
+        .send({
+          name: 'SMT',
+          logoUrl: 'http://www.atest.com',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+    it('Should return 400 for a post request without a logoUrl', (done) => {
+      chai.request(server)
+        .post(partyEndPoint)
+        .send({
+          name: 'STF',
+          hqAddress: 'Epic tower',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
           done();
         });
     });
@@ -39,12 +70,6 @@ describe('Party Tests', () => {
         .get(partyEndPoint)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.data.forEach((item) => {
-            item.should.be.a('object');
-            item.id.should.be.a('number');
-            item.name.should.be.a('string');
-            item.logoUrl.should.be.a('string');
-          });
           done();
         });
     });
@@ -56,10 +81,6 @@ describe('Party Tests', () => {
         .get(`${partyEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.have.property('id');
-          res.body.data[0].should.have.property('name');
-          res.body.data[0].should.have.property('logoUrl');
           done();
         });
     });
@@ -75,9 +96,6 @@ describe('Party Tests', () => {
         .send(input)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.have.property('id');
-          res.body.data[0].should.have.property('name');
           done();
         });
     });
@@ -99,7 +117,6 @@ describe('Office Tests', () => {
   describe(`POST ${officeEndPoint}`, () => {
     it('Should add an office', (done) => {
       const office = {
-        id: offices.length + 1,
         type: 'Students Union Government',
         name: 'Presidential',
       };
@@ -108,10 +125,28 @@ describe('Office Tests', () => {
         .send(office)
         .end((err, res) => {
           res.should.have.status(201);
-          res.body.office.should.be.a('object');
-          res.body.office.should.have.property('id');
-          res.body.office.should.have.property('type');
-          res.body.office.should.have.property('name');
+          done();
+        });
+    });
+    it('Should return 400 for a post request without a type', (done) => {
+      chai.request(server)
+        .post(officeEndPoint)
+        .send({
+          name: 'secretarial',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+    it('Should return 400 for a post request without a name', (done) => {
+      chai.request(server)
+        .post(officeEndPoint)
+        .send({
+          type: 'secretarial',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
           done();
         });
     });
@@ -122,11 +157,6 @@ describe('Office Tests', () => {
         .get(officeEndPoint)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.offices.forEach((office) => {
-            office.should.be.a('object');
-            office.id.should.be.a('number');
-            office.type.should.be.a('string');
-          });
           done();
         });
     });
@@ -138,10 +168,29 @@ describe('Office Tests', () => {
         .get(`${officeEndPoint}${id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.office.should.be.a('object');
-          res.body.office.should.have.property('id');
-          res.body.office.should.have.property('type');
-          res.body.office.should.have.property('name');
+          done();
+        });
+    });
+  });
+});
+
+describe('Home Routes Tests', () => {
+  describe(`GET ${homeEndPoint}`, () => {
+    it('Should be successful', (done) => {
+      chai.request(server)
+        .get(homeEndPoint)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  describe(`GET ${baseEndPoint}`, () => {
+    it('Should be successful', (done) => {
+      chai.request(server)
+        .get(baseEndPoint)
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });

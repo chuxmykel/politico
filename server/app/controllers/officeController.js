@@ -1,5 +1,12 @@
 /* eslint-disable class-methods-use-this */
-import offices from '../model/offices';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
 
 /** @class OfficeController
  * @description Controller class for office routes
@@ -14,29 +21,29 @@ class OfficeController {
      * @returns {object} JSON API Response.
      */
   addOffice(req, res) {
-    if (!req.body.type) {
-      res.status(400).send({
+    const queryText = 'INSERT INTO offices (type, name) VALUES ($1, $2)';
+    const { type, name } = req.body;
+
+    if (!type) {
+      return res.status(400).send({
         status: 400,
         error: 'Define office type',
       });
-    } else if (!req.body.name) {
-      res.status(400).send({
+    }
+    if (!name) {
+      return res.status(400).send({
         status: 400,
         error: 'Office name is required',
       });
-    } else {
-      const office = {
-        id: offices.length + 1,
-        type: req.body.type,
-        name: req.body.name,
-      };
-      offices.push(office);
-
-      res.status(201).send({
-        status: 201,
-        office,
-      });
     }
+    const values = [type, name];
+
+    pool.query(queryText, values, (error, results) => {
+      return res.status(201).json({
+        status: 201,
+        data: results.rows,
+      });
+    });
   }
 
   /**
@@ -47,9 +54,12 @@ class OfficeController {
      * @returns {object} JSON API Response.
      */
   getAllOffices(req, res) {
-    res.status(200).send({
-      status: 200,
-      offices,
+    const queryText = 'SELECT * FROM offices ORDER BY id ASC';
+    pool.query(queryText, (error, results) => {
+      return res.status(200).json({
+        status: 200,
+        data: results.rows,
+      });
     });
   }
 
@@ -62,17 +72,12 @@ class OfficeController {
      */
   getOneOffice(req, res) {
     const id = parseInt(req.params.id, 10);
-    offices.forEach((office) => {
-      if (office.id === id) {
-        res.status(200).send({
-          status: 200,
-          office,
-        });
-      }
-    });
-    res.status(404).send({
-      status: 404,
-      error: 'Resource not found',
+    const queryText = 'SELECT * FROM offices WHERE id = $1';
+    pool.query(queryText, [id], (error, result) => {
+      return res.status(200).json({
+        status: 200,
+        data: result.rows,
+      });
     });
   }
 }

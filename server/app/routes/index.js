@@ -3,14 +3,18 @@ import PartyController from '../controllers/partyController';
 import OfficeController from '../controllers/officeController';
 
 const router = express.Router();
-const baseEndpoint = '/api/v1/';
+const homeEndPoint = '/';
+const baseEndPoint = '/api/v1/';
 const partyEndPoint = '/api/v1/parties/';
 const officeEndPoint = '/api/v1/offices/';
 
 
 // Home
-router.get(baseEndpoint, (req, res) => {
-  res.send('Welcome to politico');
+router.get(homeEndPoint, (req, res) => {
+  res.status(200).redirect('/api/v1/');
+});
+router.get(baseEndPoint, (req, res) => {
+  res.status(200).send('Welcome to politico');
 });
 
 // Party

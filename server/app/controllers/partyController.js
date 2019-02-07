@@ -1,5 +1,13 @@
 /* eslint-disable class-methods-use-this */
-import parties from '../model/parties';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
 
 /** @class PartyController
  * @description Controller class for party routes
@@ -14,38 +22,31 @@ class PartyController {
      * @returns {object} JSON API Response.
      */
   addParty(req, res) {
-    if (!req.body.name) {
-      res.status(400).send({
+    const queryText = 'INSERT INTO parties (name, hqAddress, logoUrl) VALUES ($1, $2, $3)';
+    const { name, hqAddress, logoUrl } = req.body;
+
+    if (!name) {
+      return res.status(400).send({
         status: 400,
         error: 'Party name is required',
       });
-    } else if (!req.body.hqAddress) {
-      res.status(400).send({
+    }
+    if (!hqAddress) {
+      return res.status(400).send({
         status: 400,
-        error: 'HQ address is required',
-      });
-    } else if (!req.body.logoUrl) {
-      res.status(400).send({
-        status: 400,
-        error: 'Logo Url is required',
-      });
-    } else {
-      const party = {
-        id: parties.length + 1,
-        name: req.body.name,
-        hqAddress: req.body.hqAddress,
-        logoUrl: req.body.logoUrl,
-      };
-      parties.push(party);
-
-      res.status(201).send({
-        status: 201,
-        data: [{
-          id: party.id,
-          name: party.name,
-        }],
+        error: 'Address is required',
       });
     }
+    if (!logoUrl) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Please provide logo URL',
+      });
+    }
+    const values = [name, hqAddress, logoUrl];
+    pool.query(queryText, values, (error, results) => {
+      res.status(201).json(results.row);
+    });
   }
 
   /**
@@ -56,19 +57,9 @@ class PartyController {
      * @returns {object} JSON API Response.
      */
   getAllParties(req, res) {
-    const dataArray = [];
-    parties.forEach((party) => {
-      const data = {
-        id: party.id,
-        name: party.name,
-        logoUrl: party.logoUrl,
-      };
-      dataArray.push(data);
-    });
-
-    res.status(200).send({
-      status: 200,
-      data: dataArray,
+    const queryText = 'SELECT * FROM parties ORDER BY id ASC';
+    pool.query(queryText, (error, results) => {
+      res.status(200).json(results.rows);
     });
   }
 
@@ -81,21 +72,9 @@ class PartyController {
      */
   getOneParty(req, res) {
     const id = parseInt(req.params.id, 10);
-    parties.forEach((party) => {
-      if (party.id === id) {
-        res.status(200).send({
-          status: 200,
-          data: [{
-            id: party.id,
-            name: party.name,
-            logoUrl: party.logoUrl,
-          }],
-        });
-      }
-    });
-    res.status(404).send({
-      status: 404,
-      error: 'Party does not exist',
+    const queryText = 'SELECT * FROM parties WHERE id = $1';
+    pool.query(queryText, [id], (error, result) => {
+      res.status(200).json(result.rows);
     });
   }
 
@@ -109,29 +88,11 @@ class PartyController {
   editParty(req, res) {
     const id = parseInt(req.params.id, 10);
     const { name } = req.body;
+    const queryText = 'UPDATE parties SET name = $1 WHERE id = $2';
+    const values = [name, id];
 
-    parties.forEach((party) => {
-      if (party.id === id) {
-        if (name) {
-          res.status(200).send({
-            status: 200,
-            data: [{
-              id: party.id,
-              name,
-            }],
-          });
-        } else {
-          res.status(400).send({
-            status: 400,
-            error: 'Party name is required',
-          });
-        }
-      }
-    });
-
-    res.status(404).send({
-      status: 404,
-      error: 'Party does not exist',
+    pool.query(queryText, values, (error, results) => {
+      res.status(200).send(`User modified with ID: ${id}`);
     });
   }
 
@@ -144,20 +105,9 @@ class PartyController {
      */
   deleteParty(req, res) {
     const id = parseInt(req.params.id, 10);
-    parties.forEach((party) => {
-      if (party.id === id) {
-        delete parties[id - 1];
-        res.status(200).send({
-          status: 200,
-          data: [{
-            message: `Party with id: ${id} deleted successfully`,
-          }],
-        });
-      }
-    });
-    res.status(404).send({
-      status: 404,
-      error: 'Party does not exist or has already been deleted',
+    const text = 'DELETE FROM parties WHERE id = $1';
+    pool.query(text, [id], (error, results) => {
+      res.status(200).send(`User deleted with ID: ${id}`);
     });
   }
 }
