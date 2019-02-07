@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _offices = _interopRequireDefault(require("../model/offices"));
+var _pg = require("pg");
+
+var _dotenv = _interopRequireDefault(require("dotenv"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14,6 +16,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+_dotenv.default.config();
+
+var pool = new _pg.Pool({
+  connectionString: process.env.DATABASE_URL
+});
+/** @class OfficeController
+ * @description Controller class for office routes
+ * @exports officeController
+ */
 
 var OfficeController =
 /*#__PURE__*/
@@ -24,57 +36,79 @@ function () {
 
   _createClass(OfficeController, [{
     key: "addOffice",
+
+    /**
+       * @method addOffice
+       * @description Adds one office to the data structure
+       * @param {object} req - The request object.
+       * @param {object} res - The response object.
+       * @returns {object} JSON API Response.
+       */
     value: function addOffice(req, res) {
-      if (!req.body.type) {
-        res.status(400).send({
+      var queryText = 'INSERT INTO offices (type, name) VALUES ($1, $2)';
+      var _req$body = req.body,
+          type = _req$body.type,
+          name = _req$body.name;
+
+      if (!type) {
+        return res.status(400).send({
           status: 400,
           error: 'Define office type'
         });
-      } else if (!req.body.name) {
-        res.status(400).send({
+      }
+
+      if (!name) {
+        return res.status(400).send({
           status: 400,
           error: 'Office name is required'
         });
-      } else {
-        var office = {
-          id: _offices.default.length + 1,
-          type: req.body.type,
-          name: req.body.name
-        };
-
-        _offices.default.push(office);
-
-        res.status(201).send({
-          status: 201,
-          office: office
-        });
       }
+
+      var values = [type, name];
+      pool.query(queryText, values, function (error, results) {
+        return res.status(201).json({
+          status: 201,
+          data: results.rows
+        });
+      });
     }
+    /**
+       * @method getAllOffices
+       * @description Gets a list of all the offices
+       * @param {object} req - The request object.
+       * @param {object} res - The response object.
+       * @returns {object} JSON API Response.
+       */
+
   }, {
     key: "getAllOffices",
     value: function getAllOffices(req, res) {
-      res.status(200).send({
-        status: 200,
-        offices: _offices.default
+      var queryText = 'SELECT * FROM offices ORDER BY id ASC';
+      pool.query(queryText, function (error, results) {
+        return res.status(200).json({
+          status: 200,
+          data: results.rows
+        });
       });
     }
+    /**
+       * @method getOneOffice
+       * @description Gets a specific office from the list
+       * @param {object} req - The request object.
+       * @param {object} res - The response object.
+       * @returns {object} JSON API Response.
+       */
+
   }, {
     key: "getOneOffice",
     value: function getOneOffice(req, res) {
       var id = parseInt(req.params.id, 10);
-
-      _offices.default.forEach(function (office) {
-        if (office.id === id) {
-          res.status(200).send({
-            status: 200,
-            office: office
-          });
-        }
-      });
-
-      res.status(404).send({
-        status: 404,
-        error: 'Resource not found'
+      var queryText = 'SELECT * FROM offices WHERE id = $1';
+      pool.query(queryText, [id], function (error, result) {
+        return res.status(200).json({
+          status: 200,
+          data: result.rows
+        });
       });
     }
   }]);
