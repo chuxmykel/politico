@@ -6,14 +6,14 @@
   "scripts": {
     "build": "npm run clean && npm run build-babel",
     "test": "npm run reset-db && nyc --reporter+html --reporter=text mocha ./server/test/test.js --compilers js:@babel/register",
-    "start": "npm run build && node ./build/server.js",
+    "start": "npm run reset db && npm run build && node ./build/server.js",
     "dev": "nodemon --exec babel-node ./server/server.js",
     "reset-db": "node ./server/app/model/db dropTables && node ./server/app/model/db createTables",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --recursive ./server/test/test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build",
     "build-babel": "babel ./server -d ./build",
-    "heroku-postbuild": "npm install -g @babel/cli @babel/core @babel/preset-env && npm run reset db && npm run build"
+    "heroku-postbuild": "npm install -g @babel/cli @babel/core @babel/preset-env && npm run build"
   },
   "author": "Chukwudi Ngwobia",
   "license": "ISC",
