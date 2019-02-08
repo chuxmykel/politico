@@ -61,4 +61,4 @@ typings/
 .next
 
 # add build folder
-./build
+/build
