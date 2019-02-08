@@ -74,7 +74,7 @@ function () {
 
       var values = [name, hqAddress, logoUrl];
       pool.query(queryText, values, function (error, results) {
-        res.status(201).json(results.row);
+        res.status(201).json(results.rows);
       });
     }
     /**

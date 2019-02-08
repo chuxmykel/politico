@@ -45,7 +45,7 @@ class PartyController {
     }
     const values = [name, hqAddress, logoUrl];
     pool.query(queryText, values, (error, results) => {
-      res.status(201).json(results.row);
+      res.status(201).json(results.rows);
     });
   }
 
